@@ -11,7 +11,7 @@ ENV PATH=$PATH:/opt/gradle/gradle-5.4/bin
 # ADD https://download.oracle.com/otn/java/jdk/9.0.4+11/c2514751926b4512b076cc82f959763f/jdk-9.0.4_linux-x64_bin.tar.gz /opt/jdk/
 ADD https://download.java.net/openjdk/jdk9/ri/openjdk-9+181_linux-x64_ri.zip /opt/jdk/
 RUN unzip -d /opt/jdk /opt/jdk/openjdk-9+181_linux-x64_ri.zip
-ENV JAVA_HOME=/opt/jdk/jdk-9
+ENV JAVA_HOME=/opt/jdk/java-se-9-ri/jdk-9
 ENV PATH=$PATH:$JAVA_HOME/bin
 
 RUN java -version
