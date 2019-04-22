@@ -13,6 +13,7 @@ ADD https://download.java.net/openjdk/jdk9/ri/openjdk-9+181_linux-x64_ri.zip /op
 RUN unzip -d /opt/jdk /opt/jdk/openjdk-9+181_linux-x64_ri.zip
 # RUN ls /opt/jdk/java-se-9-ri
 # ENV JAVA_HOME=/opt/jdk/java-se-9-ri/jdk-9
+RUN apk del openjdk
 
 # ENV PATH=$PATH:$JAVA_HOME/bin
 RUN export JAVA_HOME=/opt/jdk/java-se-9-ri/jdk-9  >> /etc/profile\
