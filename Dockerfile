@@ -15,9 +15,8 @@ RUN ls -al /usr/bin/java
 RUN rm -rf /usr/bin/java
 RUN ln /opt/jdk/java-se-9-ri/bin/java /usr/bin/java
 ENV JAVA_HOME=/opt/jdk/java-se-9-ri/jdk-9
+ENV PATH=$PATH:$JAVA_HOME/bin
 RUN echo $PATH
-
-# ENV PATH=$PATH:$JAVA_HOME/bin
 # RUN export JAVA_HOME=/opt/jdk/java-se-9-ri/jdk-9  >> /etc/profile\
 #     && export JRE_HOME=${JAVA_HOME}/jre  >> /etc/profile\
 #     && export CLASSPATH=.:${JAVA_HOME}/lib:${JRE_HOME}/lib  >> /etc/profile\
