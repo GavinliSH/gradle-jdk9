@@ -8,25 +8,33 @@ RUN unzip -d /opt/gradle /opt/gradle/gradle-5.4-bin.zip \
     && ls /opt/gradle/gradle-5.4
 ENV PATH=$PATH:/opt/gradle/gradle-5.4/bin
 
-RUN apk upgrade \
-    && apk search -v 'openjdk'
-    # && apk add --no-cache openjdk9
+COPY jdk-9.0.4_linux-x64_bin.tar.gz /opt/jdk/
 
 # # ADD https://download.oracle.com/otn/java/jdk/9.0.4+11/c2514751926b4512b076cc82f959763f/jdk-9.0.4_linux-x64_bin.tar.gz /opt/jdk/
 # ADD http://download.oracle.com/otn-pub/java/jdk/9.0.1+11/jdk-9.0.1_linux-x64_bin.tar.gz /opt/jdk/
 # # RUN unzip -d /opt/jdk /opt/jdk/openjdk-9+181_linux-x64_ri.zip
-# RUN tar -zxvf /opt/jdk/jdk-9.0.1_linux-x64_bin.tar.gz -C /opt/jdk
+RUN wget —no–cookies —no–check–certificate —header “Cookie: oraclelicense=accept-securebackup-cookie” \ 
+    http://download.oracle.com/otn–pub/java/jdk/9+181/jdk–9_linux–x64_bin.tar.gz \ 
+    –O /opt/jdk/jdk–9_linux–x64_bin.tar.gz
+RUN tar -zxvf /opt/jdk/jdk–9_linux–x64_bin.tar.gz -C /opt/jdk
+RUN alternatives –install /usr/bin/java java /opt/jdk/jdk-9/bin/java 2
 # # RUN ls -al /usr/bin/java
 # # RUN rm -rf /usr/bin/java
 # # RUN ln /opt/jdk/java-se-9-ri/bin/java /usr/bin/java
-# ENV JAVA_HOME=/opt/jdk/jdk-9.0.1/jdk-9
-# ENV JRE_HOME=$JAVA_HOME/jre
-# ENV PATH=$PATH:$JAVA_HOME/bin:$JRE_HOME/bin
+# RUN ls -al /opt/jdk/jdk-9.0.4
+# RUN java -version
+# RUN ls -al /usr/bin/java
+# RUN rm /usr/bin/java \
+#     && ln -s /usr/lib/jvm/jdk-9.0.4/bin/java /usr/bin/java
+# RUN ls -al /usr/bin/java
+# RUN ln /opt/jdk/jdk-9.0.4/bin/java /usr/bin/java
+ENV JAVA_HOME=/opt/jdk/jdk-9
+# ENV CLASSPATH=:$CLASSPATH:$JAVA_HOME/lib
+ENV PATH=$PATH:$JAVA_HOME/bin
 # RUN echo $PATH
-# # RUN export JAVA_HOME=/opt/jdk/java-se-9-ri/jdk-9  >> /etc/profile\
-# #     && export JRE_HOME=${JAVA_HOME}/jre  >> /etc/profile\
-# #     && export CLASSPATH=.:${JAVA_HOME}/lib:${JRE_HOME}/lib  >> /etc/profile\
-# #     && export  PATH=${JAVA_HOME}/bin:$PATH \
-# #     && source /etc/profile
+# RUN export JAVA_HOME=/opt/jdk/jdk-9.0.4  >> /etc/profile \
+#     && export  PATH=${JAVA_HOME}/bin:$PATH >> /etc/profile \
+#     && source /etc/profile \
+#     && java -version
 
-RUN java -version
+# RUN java -version
