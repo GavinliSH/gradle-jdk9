@@ -8,15 +8,7 @@ RUN unzip -d /opt/gradle /opt/gradle/gradle-5.4-bin.zip \
     && ls /opt/gradle/gradle-5.4
 ENV PATH=$PATH:/opt/gradle/gradle-5.4/bin
 
-ARG OPENJDK9_ALPINE_URL=http://download.java.net/java/jdk9-alpine/archive/181/binaries/serverjre-9-ea+181_linux-x64-musl_bin.tar.gz
-
-# Download and untar openjdk9-alpine from $OPENJDK9_ALPINE_URL
-RUN mkdir -p /usr/lib/jvm \
-  && wget -c -O- --header "Cookie: oraclelicense=accept-securebackup-cookie" $OPENJDK9_ALPINE_URL \
-    | tar -zxC /usr/lib/jvm
-    
-# Default to UTF-8 file.encoding
-ENV LANG C.UTF-8
-
-ENV JAVA_HOME /usr/lib/jvm/jdk-9
+ADD https://s3.us-east-2.amazonaws.com/gavintest-k8s-cluster/jdk-9.0.4_linux-x64_bin.tar.gz /opt/jdk
+RUN tar -xvf jdk-9_linux-x64_bin.tar.gz -C /opt/jdk
+ENV JAVA_HOME /opt/jdk/jdk-9.0.4
 ENV PATH $PATH:$JAVA_HOME/bin
