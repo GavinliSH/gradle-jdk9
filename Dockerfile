@@ -9,7 +9,8 @@ RUN unzip -d /opt/gradle /opt/gradle/gradle-5.4-bin.zip \
 ENV PATH=$PATH:/opt/gradle/gradle-5.4/bin
 
 RUN apk upgrade \
-    && apk add --no-cache openjdk9
+    && apk search -v 'openjdk'
+    # && apk add --no-cache openjdk9
 
 # # ADD https://download.oracle.com/otn/java/jdk/9.0.4+11/c2514751926b4512b076cc82f959763f/jdk-9.0.4_linux-x64_bin.tar.gz /opt/jdk/
 # ADD http://download.oracle.com/otn-pub/java/jdk/9.0.1+11/jdk-9.0.1_linux-x64_bin.tar.gz /opt/jdk/
